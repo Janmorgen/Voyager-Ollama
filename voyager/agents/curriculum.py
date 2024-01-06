@@ -6,8 +6,8 @@ import re
 import voyager.utils as U
 from voyager.prompts import load_prompt
 from voyager.utils.json_utils import fix_and_parse_json
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.chat_models import ChatOllama
+from langchain.embeddings.ollama import OllamaEmbeddings
 from langchain.schema import HumanMessage, SystemMessage
 from langchain.vectorstores import Chroma
 
@@ -26,12 +26,12 @@ class CurriculumAgent:
         warm_up=None,
         core_inventory_items: str | None = None,
     ):
-        self.llm = ChatOpenAI(
+        self.llm = ChatOllama(
             model_name=model_name,
             temperature=temperature,
             request_timeout=request_timout,
         )
-        self.qa_llm = ChatOpenAI(
+        self.qa_llm = ChatOllama(
             model_name=qa_model_name,
             temperature=qa_temperature,
             request_timeout=request_timout,
@@ -57,7 +57,7 @@ class CurriculumAgent:
         # vectordb for qa cache
         self.qa_cache_questions_vectordb = Chroma(
             collection_name="qa_cache_questions_vectordb",
-            embedding_function=OpenAIEmbeddings(),
+            embedding_function=OllamaEmbeddings(),
             persist_directory=f"{ckpt_dir}/curriculum/vectordb",
         )
         assert self.qa_cache_questions_vectordb._collection.count() == len(

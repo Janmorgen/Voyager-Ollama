@@ -1,8 +1,8 @@
 import os
 
 import voyager.utils as U
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.chat_models import ChatOllama
+from langchain.embeddings.ollama import OllamaEmbeddings
 from langchain.schema import HumanMessage, SystemMessage
 from langchain.vectorstores import Chroma
 
@@ -20,7 +20,7 @@ class SkillManager:
         ckpt_dir="ckpt",
         resume=False,
     ):
-        self.llm = ChatOpenAI(
+        self.llm = ChatOllama(
             model_name=model_name,
             temperature=temperature,
             request_timeout=request_timout,
@@ -39,7 +39,7 @@ class SkillManager:
         self.ckpt_dir = ckpt_dir
         self.vectordb = Chroma(
             collection_name="skill_vectordb",
-            embedding_function=OpenAIEmbeddings(),
+            embedding_function=OllamaEmbeddings(),
             persist_directory=f"{ckpt_dir}/skill/vectordb",
         )
         assert self.vectordb._collection.count() == len(self.skills), (
