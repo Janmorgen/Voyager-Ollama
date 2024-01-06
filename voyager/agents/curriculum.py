@@ -27,14 +27,14 @@ class CurriculumAgent:
         core_inventory_items: str | None = None,
     ):
         self.llm = ChatOllama(
-            model_name=model_name,
+            model=model_name,
             temperature=temperature,
-            request_timeout=request_timout,
+            timeout=request_timout,
         )
         self.qa_llm = ChatOllama(
-            model_name=qa_model_name,
+            model=qa_model_name,
             temperature=qa_temperature,
-            request_timeout=request_timout,
+            timeout=request_timout,
         )
         assert mode in [
             "auto",

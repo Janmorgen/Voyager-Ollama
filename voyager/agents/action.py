@@ -32,9 +32,9 @@ class ActionAgent:
         else:
             self.chest_memory = {}
         self.llm = ChatOllama(
-            model_name=model_name,
+            model=model_name,
             temperature=temperature,
-            request_timeout=request_timout,
+            timeout=request_timout,
         )
 
     def update_chest_memory(self, chests):
@@ -83,7 +83,7 @@ class ActionAgent:
             "smeltItem",
             "killMob",
         ]
-        if not self.llm.model_name == "gpt-3.5-turbo":
+        if not self.llm.model == "gpt-3.5-turbo":
             base_skills += [
                 "useChest",
                 "mineflayer",

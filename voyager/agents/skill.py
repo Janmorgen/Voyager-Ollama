@@ -21,9 +21,9 @@ class SkillManager:
         resume=False,
     ):
         self.llm = ChatOllama(
-            model_name=model_name,
+            model=model_name,
             temperature=temperature,
-            request_timeout=request_timout,
+            timeout=request_timout,
         )
         U.f_mkdir(f"{ckpt_dir}/skill/code")
         U.f_mkdir(f"{ckpt_dir}/skill/description")
@@ -116,6 +116,7 @@ class SkillManager:
         if k == 0:
             return []
         print(f"\033[33mSkill Manager retrieving for {k} skills\033[0m")
+        print(query)
         docs_and_scores = self.vectordb.similarity_search_with_score(query, k=k)
         print(
             f"\033[33mSkill Manager retrieved skills: "
