@@ -203,12 +203,15 @@ class Voyager:
     def step(self):
         if self.action_agent_rollout_num_iter < 0:
             raise ValueError("Agent must be reset before stepping")
+        # print(self.messages)
         ai_message = self.action_agent.llm(self.messages)
         print(f"\033[34m****Action Agent ai message****\n{ai_message.content}\033[0m")
         self.conversations.append(
             (self.messages[0].content, self.messages[1].content, ai_message.content)
         )
+        # print("ai message:"+ai_message)
         parsed_result = self.action_agent.process_ai_message(message=ai_message)
+        # print("parsed result :::: "+parsed_result)
         success = False
         if isinstance(parsed_result, dict):
             code = parsed_result["program_code"] + "\n" + parsed_result["exec_code"]
@@ -347,7 +350,7 @@ class Voyager:
                     }
                 )
                 # use red color background to print the error
-                print("Your last round rollout terminated due to error:")
+                print("Your last round rollout terminated due to error:"+e.with_traceback())
                 print(f"\033[41m{e}\033[0m")
 
             if info["success"]:
