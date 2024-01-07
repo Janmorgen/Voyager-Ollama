@@ -1,20 +1,20 @@
 from voyager import Voyager
 
-mc_port=0000
+mc_port=34293
 openai_api_key = "YOUR_API_KEY"
 
 
 
-action_agent_model_name="llama2"
+action_agent_model_name="codellama"
 
 critic_agent_model_name=action_agent_model_name
-skill_manager_model_name="llama2"
+skill_manager_model_name="llama2:13b"
 
 curriculum_agent_model_name=skill_manager_model_name
 curriculum_agent_qa_model_name=skill_manager_model_name
 
 voyager = Voyager(
-    mc_port=34293,
+    mc_port=mc_port,
     openai_api_key=openai_api_key,
     action_agent_model_name=action_agent_model_name,
     critic_agent_model_name=critic_agent_model_name,
@@ -22,7 +22,7 @@ voyager = Voyager(
     curriculum_agent_model_name=curriculum_agent_model_name,
     curriculum_agent_qa_model_name=curriculum_agent_qa_model_name,
     # skill_library_dir="./skill_library/trial1", # Load a learned skill library.
-    # ckpt_dir="checkpoints", # Feel free to use a new dir. Do not use the same dir as skill library because new events will still be recorded to ckpt_dir. 
+    ckpt_dir="checkpoints", # Feel free to use a new dir. Do not use the same dir as skill library because new events will still be recorded to ckpt_dir. 
     # resume=False, 
 )
 

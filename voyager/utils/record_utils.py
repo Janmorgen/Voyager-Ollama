@@ -31,6 +31,7 @@ class EventRecorder:
         )
         self.iteration += 1
         if not self.init_position:
+            # print(events)
             self.init_position = [
                 events[0][1]["status"]["position"]["x"],
                 events[0][1]["status"]["position"]["z"],

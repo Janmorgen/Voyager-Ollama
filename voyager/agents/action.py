@@ -208,8 +208,9 @@ class ActionAgent:
                 babel = require("@babel/core")
                 babel_generator = require("@babel/generator").default
 
-                code_pattern = re.compile(r"```(?:javascript|js)(.*?)```", re.DOTALL)
+                code_pattern = re.compile(r"```(?:javascript|js|scss)(.*?)```", re.DOTALL)
                 code = "\n".join(code_pattern.findall(message.content))
+                # print(code)
                 parsed = babel.parse(code)
                 functions = []
                 assert len(list(parsed.program.body)) > 0, "No functions found"

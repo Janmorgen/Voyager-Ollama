@@ -13,9 +13,9 @@ class CriticAgent:
         mode="auto",
     ):
         self.llm = ChatOllama(
-            model_name=model_name,
+            model=model_name,
             temperature=temperature,
-            request_timeout=request_timout,
+            timeout=request_timout,
         )
         assert mode in ["auto", "manual"]
         self.mode = mode
